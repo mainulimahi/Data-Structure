@@ -1,0 +1,155 @@
+#include<iostream>
+using namespace std;
+
+ struct node{
+  node *prev;
+ int data;
+ node *next;
+ 
+ };
+ struct node *first=NULL;
+ node *add_node(){
+ 	node *n = new node;
+ 	cout<<"Enter the Data: "<<endl;
+ 	cin>>n->data;
+ 	n->next = NULL;
+ 	n->prev = NULL;
+ 	return n;
+ }
+void insert_node(){
+	
+	node* flag;
+	flag=add_node();
+	if(first== NULL){
+		first=flag;	
+		
+	}
+	else{
+		node *visit;
+		visit = first;
+		while(visit->next !=NULL){
+			visit = visit->next;
+		}
+		visit->next=flag;
+		flag->prev=visit;
+	}
+}
+
+   void insert_first(){
+   	
+   	node* flag;
+	flag=add_node();
+   	flag->next=first;
+   	first->prev=flag;
+   	first=flag;
+   	
+   } 
+void insert_last(){
+	
+	node* flag;
+	flag=add_node();
+	int value;
+	cout<<"Enter the value after insertion:"<<endl;
+	cin>>value;
+	node*visit;
+	visit = first;
+	while(visit->data!=value){
+		visit=visit->next;
+	}
+	flag->prev=visit;
+	flag->next=visit->next;
+	visit->next->prev=flag;
+	visit->next=flag;
+	
+}
+void display(){
+	node*visit;
+	visit=first;
+	while(visit!=NULL){
+		cout<<visit->data<<" ";
+		visit=visit->next;
+	}
+		
+	}
+	void delete_first(){
+		
+		node*flag;
+		flag=first;
+		first=first->next;
+		cout<<flag->data<<"has been deleted:"<<endl;
+		delete(flag);
+			
+	}
+	void delete_last(){
+		node *visit;
+		visit=first;
+		while(visit->next!=NULL){
+			visit=visit->next;
+		}
+		visit->prev->next=NULL;
+		cout<<visit->data<<"has been deleted"<<endl;
+		delete(visit);
+		
+	}
+	void delete_middle(){
+		
+		int value;
+		cout<<"enter the value after deletion:"<<endl;
+		cin>>value;
+		node*visit;
+		visit=first;
+		
+		while(visit->data !=value){
+			visit=visit->next;
+			
+		}
+		node *flag;
+		flag = visit->next;
+		visit->next=flag->next;
+		flag->next->prev=visit;
+		cout<<flag->data<<"data deleted:"<<endl;
+		delete(flag);
+	}
+		
+	int main(){
+	
+	 int option;
+
+		do{
+		
+			cout<<"\nEnter 0 if you want to exit"<<endl;
+			cout<<"1 Add Node"<<endl;
+			cout<<"2 Insert Node at first:"<<endl;
+			cout<<"3 Add Node after a given position:"<<endl;
+			cout<<"4 Delete First node:"<<endl;
+			cout<<"5 Delete last node:"<<endl;
+			cout<<"6 Delete node after a given node:"<<endl;
+			cout<<"7 display:"<<endl;
+	
+			cin>>option;
+
+			switch(option){
+			
+						
+				case 1:insert_node();
+				break;
+			    case 2:insert_first();
+				break;
+				case 3:insert_last();
+				break;
+				case 4:delete_first();
+				break;
+				case 5:delete_last();
+				break;
+				case 6:delete_middle();
+				break;
+				case 7:display();
+                 break;
+			             
+	    	}
+			
+			   
+       }
+       while(option!=0);
+       return 0;
+}
